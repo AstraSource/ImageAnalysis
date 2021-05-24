@@ -7,6 +7,7 @@ import random
 import os
 import numpy as np
 import math
+import tempfile
 
 
 def crop_image(x_crop, y_crop, img_path):
@@ -140,7 +141,6 @@ def aug2(img, rng):
 
 
 def aug3(img):
-    rnd = np.random.random_sample()
-    noise = Image.effect_noise((img.size[0], img.size[1]), rnd)
-    blend = Image.blend(img, noise, 0.2)
+    pil_map = Image.fromarray(np.random.randint(0, 255, (img.size[0], img.size[1], 3), dtype=np.dtype('uint8')))
+    blend = Image.blend(img, pil_map, 0.2)
     return blend
